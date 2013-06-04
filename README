@@ -1,0 +1,16 @@
+This is a Nagios plugin to check the expiration date of a domain name.
+It uses the "whois" command, which usually comes as a "whois" package.
+Debian/Ubuntu: apt-get install whois
+
+Original version had this copyright notice in it:
+Copyright (c) 2005 Tomàs Núñez Lirola <tnunez@criptos.com>,
+     2009-2012 Elan Ruusamäe <glen@delfi.ee>, under GPL License
+
+Ryan found it hosted at:
+http://git.pld-linux.org/gitweb.cgi/?p=packages/nagios-plugin-check_domain.git
+
+This is a modified version, hosted at https://github.com/Elyrith/check_domain
+Currently supports .com, .ca, .tv, .ee, .ru
+Support for .ca and .se by Ryan Loudfoot (elyrith@gmail.com)
+Support for Performance Data by Ryan Loudfoot
+
