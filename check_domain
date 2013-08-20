@@ -110,7 +110,7 @@ out=$($whois $domain)
 # Calculate days until expiration
 case "$domain" in
 *.com)
-	expiration=$(echo "$out" | awk -F: '/Expiration Date:/{print substr($0, length($1) + 2)}')
+	expiration=$(echo "$out" | awk -F: '/Registrar Expiration Date:/{print substr($0, length($1) + 2)}')
 	;;
 *.ru)
 	expiration=$(echo "$out" | awk '/paid-till:/{split($2, a, "."); printf("%s-%s-%s\n", a[1], a[2], a[3])}')
