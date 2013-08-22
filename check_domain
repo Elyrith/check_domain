@@ -144,9 +144,9 @@ diffseconds=$((expseconds-nowseconds))
 expdays=$((diffseconds/86400))
 
 # Trigger alarms if applicable
-#[ $expdays -lt 0 ] && die $STATE_CRITICAL "CRITICAL - Domain expired on $expiration. | Warning: $warning, Critical: $critical"
-#[ $expdays -lt $critical ] && die $STATE_CRITICAL "CRITICAL - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
-#[ $expdays -lt $warning ] && die $STATE_WARNING "WARNING - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
+[ $expdays -lt 0 ] && die $STATE_CRITICAL "CRITICAL - Domain expired on $expiration. | Warning: $warning, Critical: $critical"
+[ $expdays -lt $critical ] && die $STATE_CRITICAL "CRITICAL - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
+[ $expdays -lt $warning ] && die $STATE_WARNING "WARNING - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
 
 # No alarms? Ok, everything is right.
 echo "OK - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
