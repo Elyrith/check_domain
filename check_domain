@@ -23,7 +23,7 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-VERSION="Version Infinity"
+VERSION="Version 0.9"
 AUTHOR="See README. This version updated by Ryan Loudfoot (elyrith@gmail.com)"
 
 PROGRAM=${0##*/}
