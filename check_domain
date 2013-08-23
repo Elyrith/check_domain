@@ -23,21 +23,24 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-VERSION="Version 0.9"
+VERSION="Version 0.91"
 AUTHOR="See README. This version updated by Ryan Loudfoot (elyrith@gmail.com)"
 
 PROGRAM=${0##*/}
 PROGPATH=${0%/*}
 
 # Ryan's note: utils.sh is installed with nagios-plugins in with the plugins
-# Added nagios exit state constants instead of utils.sh so you can run it anywhere
-# instead of only in the libexec folder
-#. $PROGPATH/utils.sh
-STATE_OK=0
-STATE_WARNING=1
-STATE_CRITICAL=2
-STATE_UNKNOWN=3
-STATE_DEPENDENT=4
+# Check if utils.sh exists. This lets you use check_domain in a testing environment
+# or outside of Nagios.
+if [ -a utils.sh ]; then
+	. $PROGPATH/utils.sh
+else
+	STATE_OK=0
+	STATE_WARNING=1
+	STATE_CRITICAL=2
+	STATE_UNKNOWN=3
+	STATE_DEPENDENT=4
+fi
 
 # Default values (days):
 critical=7
