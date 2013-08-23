@@ -30,11 +30,21 @@ PROGRAM=${0##*/}
 PROGPATH=${0%/*}
 
 # Ryan's note: utils.sh is installed with nagios-plugins in with the plugins
-. $PROGPATH/utils.sh
+# Added nagios exit state constants instead of utils.sh so you can run it anywhere
+# instead of only in the libexec folder
+#. $PROGPATH/utils.sh
+STATE_OK=0
+STATE_WARNING=1
+STATE_CRITICAL=2
+STATE_UNKNOWN=3
+STATE_DEPENDENT=4
 
 # Default values (days):
 critical=7
 warning=30
+
+# Array for converting 3-letter month into number
+MONTH=("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")
 
 # Parse arguments
 args=$(getopt -o hd:w:c:P: --long help,domain:,warning:,critical:,path: -u -n $PROGRAM -- "$@")
@@ -126,6 +136,12 @@ case "$domain" in
 	;;
 *.se)
 	expiration=$(echo "$out" | awk '/expires:/{split($2, a, "-"); printf("%s-%s-%s\n", a[1], a[2], a[3])}')
+	;;
+*.nu)
+# This doesn't work, yet. Need to convert 3-letter month into number. -Ryan, Aug 21, 2013
+	expmonth=$(echo "$out" | awk -F '/Record expires on/{print substr($4, length($1) + 2)}'}
+	echo $expmonth
+	expiration=$(echo "$out" | awk '/Record expires on/{split($4, a, "-"); printf("%s-%s-%s\n", a[2], a[3], a[1]);}')
 	;;
 *)
 	expiration=$(echo "$out" | awk -F: '/Expiration Date:/{print substr($0, length($1) + 2)}')
