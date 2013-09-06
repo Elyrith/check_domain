@@ -15,3 +15,9 @@ Support for .ca and .se by Ryan Loudfoot (elyrith@gmail.com)
 Support for Performance Data by Ryan Loudfoot
 
 If you would like to add a TLD, send me the code or a pull request. If you want me to add one, let me know and I'll see what I can do.
+
+Change log:
+2013-09-06 - Version 0.92
+-Modified the .com result to work for more domains since not all registrars have everything the same way
+-Change readme to be lower-case for the file name
+-Created changelog
