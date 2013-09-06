@@ -23,7 +23,7 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-VERSION="Version 0.91"
+VERSION="Version 0.92"
 AUTHOR="See README. This version updated by Ryan Loudfoot (elyrith@gmail.com)"
 
 PROGRAM=${0##*/}
@@ -123,7 +123,11 @@ out=$($whois $domain)
 # Calculate days until expiration
 case "$domain" in
 *.com)
-	expiration=$(echo "$out" | awk -F: '/Registrar Expiration Date:/{print substr($0, length($1) + 2)}')
+#	Old way, which didn't work for some .com domains, but kept in case the new way doesn't work for some
+#	expiration=$(echo "$out" | awk -F: '/Registrar Expiration Date:/{print substr($0, length($1) + 2)}')
+
+#	New way (2013-09-06)
+	expiration=$(echo "$out" | awk -F: '/Expiration Date:/{print substr($0, length($1) + 2);exit;}')
 	;;
 *.ru)
 	expiration=$(echo "$out" | awk '/paid-till:/{split($2, a, "."); printf("%s-%s-%s\n", a[1], a[2], a[3])}')
@@ -152,7 +156,7 @@ case "$domain" in
 esac
 
 # For debugging only:
-# echo $expiration
+#echo $expiration
 
 [ -z "$expiration" ] && die $STATE_UNKNOWN "UNKNOWN - Domain doesn't exist or no WHOIS server available."
 
