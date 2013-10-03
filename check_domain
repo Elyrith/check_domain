@@ -23,7 +23,7 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-VERSION="Version 0.92"
+VERSION="Version 0.93"
 AUTHOR="See README. This version updated by Ryan Loudfoot (elyrith@gmail.com)"
 
 PROGRAM=${0##*/}
@@ -118,7 +118,15 @@ else
 	whois="$whoispath/whois"
 fi
 
-out=$($whois $domain)
+# Use GoDaddy if domain is a .ca
+case "$domain" in
+*.ca)
+        out=$($whois -h whois.godaddy.com $domain)
+        ;;
+*)
+        out=$($whois $domain)
+        ;;
+esac
 
 # Calculate days until expiration
 case "$domain" in
