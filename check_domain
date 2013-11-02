@@ -23,8 +23,8 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-VERSION="Version 0.93"
-AUTHOR="See README. This version updated by Ryan Loudfoot (elyrith@gmail.com)"
+# VERSION: Version 0.94
+# AUTHOR: See README. This version updated by Ryan Loudfoot (elyrith@gmail.com)
 
 PROGRAM=${0##*/}
 PROGPATH=${0%/*}
@@ -33,24 +33,24 @@ PROGPATH=${0%/*}
 # Check if utils.sh exists. This lets you use check_domain in a testing environment
 # or outside of Nagios.
 if [ -a utils.sh ]; then
-	. $PROGPATH/utils.sh
+	. "$PROGPATH/utils.sh"
 else
 	STATE_OK=0
 	STATE_WARNING=1
 	STATE_CRITICAL=2
 	STATE_UNKNOWN=3
-	STATE_DEPENDENT=4
+#	STATE_DEPENDENT=4    (Commented because it's unused.)
 fi
 
 # Default values (days):
 critical=7
 warning=30
 
-# Array for converting 3-letter month into number
-MONTH=("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")
+# Array for converting 3-letter month into number (currently unused)
+#MONTH=("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")
 
 # Parse arguments
-args=$(getopt -o hd:w:c:P: --long help,domain:,warning:,critical:,path: -u -n $PROGRAM -- "$@")
+args=$(getopt -o hd:w:c:P: --long help,domain:,warning:,critical:,path: -u -n "$PROGRAM" -- "$@")
 if [ $? != 0 ]; then
 	echo >&2 "$PROGRAM: Could not parse arguments"
 	echo "Usage: $PROGRAM -h | -d <domain> [-c <critical>] [-w <warning>]"
@@ -61,8 +61,8 @@ set -- $args
 die() {
 	local rc=$1
 	local msg=$2
-	echo $msg
-	exit $rc
+	echo "$msg"
+	exit "$rc"
 }
 
 fullusage() {
@@ -105,12 +105,12 @@ while :; do
 	esac
 done
 
-if [ -z $domain ]; then
+if [ -z "$domain" ]; then
 	die $STATE_UNKNOWN "UNKNOWN - There is no domain name to check"
 fi
 
 # Looking for whois binary
-if [ -z $whoispath ]; then
+if [ -z "$whoispath" ]; then
 	type whois > /dev/null 2>&1 || die $STATE_UNKNOWN "UNKNOWN - Unable to find whois binary in your path. Is it installed? Please specify path."
 	whois=whois
 else
@@ -121,10 +121,10 @@ fi
 # Use GoDaddy if domain is a .ca
 case "$domain" in
 *.ca)
-        out=$($whois -h whois.godaddy.com $domain)
+        out=$("$whois" -h whois.godaddy.com "$domain")
         ;;
 *)
-        out=$($whois $domain)
+        out=$("$whois" "$domain")
         ;;
 esac
 
@@ -152,12 +152,12 @@ case "$domain" in
 *.se)
 	expiration=$(echo "$out" | awk '/expires:/{split($2, a, "-"); printf("%s-%s-%s\n", a[1], a[2], a[3])}')
 	;;
-*.nu)
+#*.nu)
 # This doesn't work, yet. Need to convert 3-letter month into number. -Ryan, Aug 21, 2013
-	expmonth=$(echo "$out" | awk -F '/Record expires on/{print substr($4, length($1) + 2)}'}
-	echo $expmonth
-	expiration=$(echo "$out" | awk '/Record expires on/{split($4, a, "-"); printf("%s-%s-%s\n", a[2], a[3], a[1]);}')
-	;;
+#	expmonth=$(echo "$out" | awk -F '/Record expires on/{print substr($4, length($1) + 2)}'}
+#	echo $expmonth
+#	expiration=$(echo "$out" | awk '/Record expires on/{split($4, a, "-"); printf("%s-%s-%s\n", a[2], a[3], a[1]);}')
+#	;;
 *)
 	expiration=$(echo "$out" | awk -F: '/Expiration Date:/{print substr($0, length($1) + 2)}')
 	;;
@@ -176,8 +176,8 @@ expdays=$((diffseconds/86400))
 
 # Trigger alarms if applicable
 [ $expdays -lt 0 ] && die $STATE_CRITICAL "CRITICAL - Domain expired on $expiration. | Warning: $warning, Critical: $critical"
-[ $expdays -lt $critical ] && die $STATE_CRITICAL "CRITICAL - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
-[ $expdays -lt $warning ] && die $STATE_WARNING "WARNING - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
+[ $expdays -lt "$critical" ] && die $STATE_CRITICAL "CRITICAL - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
+[ $expdays -lt "$warning" ] && die $STATE_WARNING "WARNING - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
 
 # No alarms? Ok, everything is right.
 echo "OK - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
