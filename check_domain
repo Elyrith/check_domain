@@ -23,8 +23,8 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-# VERSION: Version 0.94
-# AUTHOR: See README. This version updated by Ryan Loudfoot (elyrith@gmail.com)
+# VERSION: Version 0.95
+# AUTHOR: See README. This version updated by Ryan Loudfoot (ryan@delotha.com)
 
 PROGRAM=${0##*/}
 PROGPATH=${0%/*}
@@ -32,7 +32,7 @@ PROGPATH=${0%/*}
 # Ryan's note: utils.sh is installed with nagios-plugins in with the plugins
 # Check if utils.sh exists. This lets you use check_domain in a testing environment
 # or outside of Nagios.
-if [ -a utils.sh ]; then
+if [ -e "$PROGPATH/utils.sh" ]; then
 	. "$PROGPATH/utils.sh"
 else
 	STATE_OK=0
