@@ -50,13 +50,13 @@ warning=30
 #MONTH=("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")
 
 # Parse arguments
-args=$(getopt -o hd:w:c:P: --long help,domain:,warning:,critical:,path: -u -n "$PROGRAM" -- "$@")
+args=$(getopt -o hd:w:c:P: --long help,domain:,warning:,critical:,path: -s bash -n "$PROGRAM" -- "$@")
 if [ $? != 0 ]; then
 	echo >&2 "$PROGRAM: Could not parse arguments"
 	echo "Usage: $PROGRAM -h | -d <domain> [-c <critical>] [-w <warning>]"
 	exit 1
 fi
-set -- $args
+eval "set -- $args"
 
 die() {
 	local rc=$1
