@@ -152,6 +152,9 @@ case "$domain" in
 *.se)
 	expiration=$(echo "$out" | awk '/expires:/{split($2, a, "-"); printf("%s-%s-%s\n", a[1], a[2], a[3])}')
 	;;
+*.net)
+	expiration=$(echo "$out" | awk -F: '/   Expiration Date:/{print substr($0, length($1) + 3, 11)}')
+	;;
 #*.nu)
 # This doesn't work, yet. Need to convert 3-letter month into number. -Ryan, Aug 21, 2013
 #	expmonth=$(echo "$out" | awk -F '/Record expires on/{print substr($4, length($1) + 2)}'}
@@ -182,3 +185,4 @@ expdays=$((diffseconds/86400))
 # No alarms? Ok, everything is right.
 echo "OK - Domain will expire in $expdays days ($expdate). | Warning: $warning, Critical: $critical"
 exit $STATE_OK
+
