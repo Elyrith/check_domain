@@ -23,7 +23,7 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-# VERSION: Version 0.95
+# VERSION: Version 0.96
 # AUTHOR: See README. This version updated by Ryan Loudfoot (ryan@delotha.com)
 
 PROGRAM=${0##*/}
