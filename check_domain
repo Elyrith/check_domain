@@ -155,7 +155,10 @@ case "$domain" in
 *.net)
 	expiration=$(echo "$out" | awk -F: '/   Expiration Date:/{print substr($0, length($1) + 3, 11)}')
 	;;
-#*.nu)
+*.nu)
+	expiration=$(echo "$out" | grep expires | awk '{print $2}')
+	;;
+#*.nu) # I'll leave this in just in case /Jack-Benny
 # This doesn't work, yet. Need to convert 3-letter month into number. -Ryan, Aug 21, 2013
 #	expmonth=$(echo "$out" | awk -F '/Record expires on/{print substr($4, length($1) + 2)}'}
 #	echo $expmonth
