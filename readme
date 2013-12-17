@@ -10,14 +10,17 @@ Ryan found it hosted at:
 http://git.pld-linux.org/gitweb.cgi/?p=packages/nagios-plugin-check_domain.git
 
 This is a modified version, hosted at https://github.com/Elyrith/check_domain
-Currently supports .com, .ca, .tv, .ee, .ru, .net
+Currently supports .com, .ca, .tv, .ee, .ru, .net, .nu
 Support for .ca and .se by Ryan Loudfoot (elyrith@gmail.com)
-Support for .net by Jack-Benny Persson (jack-benny@cyberinfo.se)
+Support for .net and .nu by Jack-Benny Persson (jack-benny@cyberinfo.se)
 Support for Performance Data by Ryan Loudfoot
 
 If you would like to add a TLD, send me the code or a pull request. If you want me to add one, let me know and I'll see what I can do.
 
 Change log:
+2013-12-16 - Version 0.97
+-Fix support for .nu domains thanks to Jack-Benny Persson (jack-benny@cyberinfo.se)
+
 2013-11-28 - Version 0.96
 -Add support for .net domains thanks to Jack-Benny Persson (jack-benny@cyberinfo.se)
 
