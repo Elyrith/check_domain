@@ -23,7 +23,7 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-# VERSION: Version 0.96
+# VERSION: Version 0.97
 # AUTHOR: See README. This version updated by Ryan Loudfoot (ryan@delotha.com)
 
 PROGRAM=${0##*/}
@@ -158,12 +158,6 @@ case "$domain" in
 *.nu)
 	expiration=$(echo "$out" | grep expires | awk '{print $2}')
 	;;
-#*.nu) # I'll leave this in just in case /Jack-Benny
-# This doesn't work, yet. Need to convert 3-letter month into number. -Ryan, Aug 21, 2013
-#	expmonth=$(echo "$out" | awk -F '/Record expires on/{print substr($4, length($1) + 2)}'}
-#	echo $expmonth
-#	expiration=$(echo "$out" | awk '/Record expires on/{split($4, a, "-"); printf("%s-%s-%s\n", a[2], a[3], a[1]);}')
-#	;;
 *)
 	expiration=$(echo "$out" | awk -F: '/Expiration Date:/{print substr($0, length($1) + 2)}')
 	;;
