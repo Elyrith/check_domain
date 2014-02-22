@@ -118,16 +118,6 @@ else
 	whois="$whoispath/whois"
 fi
 
-# Use GoDaddy if domain is a .ca
-case "$domain" in
-*.ca)
-        out=$("$whois" -h whois.godaddy.com "$domain")
-        ;;
-*)
-        out=$("$whois" "$domain")
-        ;;
-esac
-
 # Calculate days until expiration
 case "$domain" in
 *.com)
