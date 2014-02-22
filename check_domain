@@ -118,6 +118,8 @@ else
 	whois="$whoispath/whois"
 fi
 
+out=$("$whois" "$domain")
+
 # Calculate days until expiration
 case "$domain" in
 *.com)
