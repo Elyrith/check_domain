@@ -26,7 +26,7 @@
 # VERSION: Version 1.0
 # AUTHOR: See README. This version updated by Ryan Loudfoot (ryan@delotha.com)
 
-PROGRAM=$(whereis -b -B /{bin,usr,etc}/* -f whois | awk '{print $2}')
+PROGRAM=$(whereis -b -B /{bin,sbin,usr,etc} /{bin,sbin,usr,etc}/* -f whois | awk '{print $2}')
 
 # Ryan's note: utils.sh is installed with nagios-plugins in with the plugins
 # Check if utils.sh exists. This lets you use check_domain in a testing
