@@ -46,7 +46,8 @@ critical=7
 warning=30
 
 # Array for converting 3-letter month into number (currently unused)
-#MONTH=("jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")
+# "nil" added as element-zero $MONTH[0]
+#MONTH=("nil" "jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec")
 
 # Parse arguments
 args=$(getopt -o hd:w:c:P: --long help,domain:,warning:,critical:,path: -s bash -n "$PROGRAM" -- "$@")
