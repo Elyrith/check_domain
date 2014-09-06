@@ -23,17 +23,16 @@
 # https://github.com/Elyrith/check_domain                                     #
 ###############################################################################
 
-# VERSION: Version 0.99
+# VERSION: Version 1.0
 # AUTHOR: See README. This version updated by Ryan Loudfoot (ryan@delotha.com)
 
-PROGRAM=${0##*/}
-PROGPATH=${0%/*}
+PROGRAM=$(whereis -b -B /{bin,usr,etc}/* -f whois | awk '{print $2}')
 
 # Ryan's note: utils.sh is installed with nagios-plugins in with the plugins
 # Check if utils.sh exists. This lets you use check_domain in a testing
 # environment or outside of Nagios.
-if [ -e "$PROGPATH/utils.sh" ]; then
-	. "$PROGPATH/utils.sh"
+if [ -e "utils.sh" ]; then
+	. "utils.sh"
 else
 	STATE_OK=0
 	STATE_WARNING=1
@@ -83,6 +82,8 @@ Options:
      Response time to result in warning status (days)
 -c
      Response time to result in critical status (days)
+-P
+     Path to whois command (No ending slash, like "/usr/bin")
 
 This plugin will use whois service to get the expiration date for the domain name.
 Example:
@@ -111,10 +112,10 @@ fi
 
 # Looking for whois binary
 if [ -z "$whoispath" ]; then
-	type whois > /dev/null 2>&1 || die $STATE_UNKNOWN "UNKNOWN - Unable to find whois binary in your path. Is it installed? Please specify path."
-	whois=whois
+	type whois > /dev/null 2>&1 || die $STATE_UNKNOWN "UNKNOWN - Unable to find whois binary. Is it installed?"
+	whois=$PROGRAM
 else
-	[ -x "$whoispath/whois" ] || die $STATE_UNKNOWN "UNKNOWN - Unable to find whois binary, you specified an incorrect path"
+	[ -x "$whoispath/whois" ] || die $STATE_UNKNOWN "UNKNOWN - Unable to find whois binary, you specified an incorrect path."
 	whois="$whoispath/whois"
 fi
 
