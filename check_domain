@@ -90,7 +90,7 @@ This plugin will use whois service to get the expiration date for the domain nam
 Example:
      $PROGRAM -d domain.tld -w 30 -c 10
 
-Currently supports .com, .ca, .tv, .ee, .ru, .nu .se, .net, .org
+Currently supports .com, .ca, .tv, .ee, .ru, .nu .se, .net, .org, .cz, .sk
 
 EOF
 }
@@ -154,6 +154,12 @@ case "$domain" in
 	;;
 *.nu)
 	expiration=$(echo "$out" | grep expires | awk '{print $2}')
+	;;
+*.cz)
+	expiration=$(echo "$out" | awk '/expire:/{split($2, a, "."); printf("%s-%s-%s\n", a[3], a[2], a[1])}')
+	;;
+*.sk)
+	expiration=$(echo "$out" | grep Valid-date | awk '{print $2}')
 	;;
 *)
 	expiration=$(echo "$out" | awk -F: '/Expiration Date:/{print substr($0, length($1) + 2)}')
