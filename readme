@@ -1,3 +1,13 @@
+UPDATE 2015-03-27: I've found the original plugin (still maintained by Elan) on GitHub at https://github.com/glensc/nagios-plugin-check_domain. It has improved much more than this one so I've contributed the minor additions from this repo upstream and am going to switch to that version.
+
+If you want to use this version because you find it simpler, that is fine. I won't be deleting it. I will test and accept pull requests, but won't be doing much more.
+
+If you want to add a TLD to either this or nagios-plugin-check_domain, the best thing to do is create an issue on the original repo (linked above).
+
+-Ryan
+
+-----
+
 This is a Nagios plugin to check the expiration date of a domain name.
 It uses the "whois" command, which usually comes as a "whois" package.
 Debian/Ubuntu: apt-get install whois
@@ -18,29 +28,3 @@ Support for Performance Data by Ryan Loudfoot
 
 If you would like to add a TLD, send me the code or a pull request. If you want me to add one, let me know and I'll see what I can do.
 
-Change log:
-2014-09-06 - Version 1.0!
--Using whereis command to find the whois binary
-  ("whois on first, whereis on second..." -geekiest Abbot and Costello?)
--Add help text for -P switch
--Add RHEL/CentOS command for installing whois command (jwhois package)
-
-2014-06-26 - Version 0.99
--Add support for .org domains thanks to Jack-Benny Persson (jack-benny@cyberinfo.se)
-
-2014-02-21 - Version 0.98
--Fix support for .ca domains, not sure why it broke but it's fixed now.
--Fix spacing in comment for utils.sh
--Add note that the source repo has been updated
--Mention .se support in "Currently supports" line in readme
-
-2013-12-16 - Version 0.97
--Fix support for .nu domains thanks to Jack-Benny Persson (jack-benny@cyberinfo.se)
-
-2013-11-28 - Version 0.96
--Add support for .net domains thanks to Jack-Benny Persson (jack-benny@cyberinfo.se)
-
-2013-09-06 - Version 0.92
--Modified the .com result to work for more domains since not all registrars have everything the same way
--Change readme to be lower-case for the file name
--Created changelog
