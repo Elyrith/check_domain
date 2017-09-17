@@ -1,3 +1,5 @@
+UPDATE 2017-09-07: Updated .net and .com since they changed the whois format / Jack-Benny Persson.
+
 UPDATE 2015-03-27: I've found the original plugin (still maintained by Elan) on GitHub at https://github.com/glensc/nagios-plugin-check_domain. It has improved much more than this one so I've contributed the minor additions from this repo upstream and am going to switch to that version.
 
 If you want to use this version because you find it simpler, that is fine. I won't be deleting it. I will test and accept pull requests, but won't be doing much more.
